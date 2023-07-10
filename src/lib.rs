@@ -62,6 +62,9 @@ macro_rules! iprint {
     ($f:literal, $($arg:expr),*) => {
         print!("{}", iformat!($f, $($arg),*))
     };
+    ($f:literal) => {
+        print!("{}", iformat!($f))
+    };
 }
 
 /// see the `iformat` macro for usage
@@ -69,5 +72,8 @@ macro_rules! iprint {
 macro_rules! iprintln {
     ($f:literal, $($arg:expr),*) => {
         println!("{}", iformat!($f, $($arg),*))
+    };
+    ($f:literal) => {
+        println!("{}", iformat!($f))
     };
 }
