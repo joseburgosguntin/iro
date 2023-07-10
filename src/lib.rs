@@ -21,7 +21,7 @@ pub fn get_flag() -> bool {
     unsafe { FLAG.load(std::sync::atomic::Ordering::Relaxed) }
 }
 
-/// # Example
+/// # Examples
 /// ```
 ///let (w_1, w_2) = (3, 2);
 ///        assert_eq!(
@@ -34,6 +34,10 @@ pub fn get_flag() -> bool {
 ///            "Round \u{1b}[33m3\u{1b}[39m \u{1b}[34mp_1\u{1b}[39m has \u{1b}[33m2\u{1b}[39m wins \u{1b}[31mp_2\u{1b}[39m \u{1b}[33m6\u{1b}[39m wins"
 ///        )
 /// ```
+///
+/// ```
+/// assert_eq!(iro::iformat!("Hello <r>World</>"), "Hello \u{1b}[31mWorld\u{1b}[39m")
+/// ```
 #[macro_export]
 macro_rules! iformat {
     ($f:literal, $($arg:expr),*) => {
@@ -41,6 +45,13 @@ macro_rules! iformat {
             color_print::cformat!($f, $($arg),* )
         } else {
             format!(color_print::untagged!($f), $($arg),*)
+        }
+    };
+    ($f:literal) => {
+        if $crate::get_flag() {
+            color_print::cformat!($f)
+        } else {
+            format!(color_print::untagged!($f))
         }
     };
 }
