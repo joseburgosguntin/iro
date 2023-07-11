@@ -49,7 +49,7 @@ macro_rules! iformat {
 #[macro_export]
 macro_rules! iprint {
     ($f:literal, $($arg:expr),*) => {
-        print!("{}", iro_format!($f, $($arg),*))
+        print!("{}", iformat!($f, $($arg),*))
     };
 }
 
@@ -57,6 +57,6 @@ macro_rules! iprint {
 #[macro_export]
 macro_rules! iprintln {
     ($f:literal, $($arg:expr),*) => {
-        println!("{}", iro_format!($f, $($arg),*))
+        println!("{}", iformat!($f, $($arg),*))
     };
 }
